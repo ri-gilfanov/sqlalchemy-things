@@ -17,7 +17,7 @@ classifiers = [
     "Topic :: Database :: Front-Ends",
 ]
 keywords = ["sqlalchemy"]
-license = "BSD-3-Clause"
+license = "MIT License"
 readme = "README.rst"
 
 documentation = "https://sqlalchemy-things.readthedocs.io/"
