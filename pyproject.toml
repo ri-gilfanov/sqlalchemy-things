@@ -50,3 +50,9 @@ build-backend = "poetry.core.masonry.api"
 exclude_lines = [
     "if TYPE_CHECKING",
 ]
+
+[tool.mypy]
+files = [
+    "sqlalchemy_things",
+    "tests",
+]
