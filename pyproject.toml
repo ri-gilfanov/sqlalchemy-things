@@ -36,6 +36,7 @@ postgresql = ["asyncpg"]
 sqlite = ["aiosqlite"]
 
 [tool.poetry.dev-dependencies]
+flake8 = ">=3.9.2"
 isort = ">=5.9.1"
 mypy = ">=0.902"
 pytest = ">=6.2.4"
