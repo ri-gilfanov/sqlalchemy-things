@@ -17,7 +17,7 @@ name = "aiosqlite"
 version = "0.17.0"
 description = "asyncio bridge to the standard sqlite3 module"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -612,7 +612,7 @@ sqlite = ["aiosqlite"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "767f1f10c30a57e77a729d6755fef2d03f4c36c43a6c98fb81e6f136e3b16ff6"
+content-hash = "0dfa285faf2f2b5111a7458d8a010eb088266c5e098c7df86ddb3e4da1727523"
 
 [metadata.files]
 aiomysql = [
