@@ -36,6 +36,7 @@ postgresql = ["asyncpg"]
 sqlite = ["aiosqlite"]
 
 [tool.poetry.dev-dependencies]
+isort = ">=5.9.1"
 mypy = ">=0.902"
 pytest = ">=6.2.4"
 pytest-cov = ">=2.12.1"
@@ -45,6 +46,12 @@ sphinx_rtd_theme = ">=0.5.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+known_first_party = ["sqlalchemy_things"]
+known_third_party = ["sqlalchemy"]
+profile = "wemake"
+src_paths = ["sqlalchemy_things", "tests"]
 
 [tool.coverage.report]
 exclude_lines = [
