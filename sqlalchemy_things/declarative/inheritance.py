@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 from sqlalchemy import orm
 
-from sqlalchemy_things.decl import DeclarativeMixin
+from sqlalchemy_things.declarative import DeclarativeMixin
 
 
 @orm.declarative_mixin

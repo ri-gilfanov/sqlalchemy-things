@@ -1,32 +1,40 @@
-from sqlalchemy.types import TypeDecorator, CHAR
-from sqlalchemy.dialects import postgresql
 import uuid
-from typing import TYPE_CHECKING
+from typing import Any, Optional, Union
 
-if TYPE_CHECKING:
-    from sqlalchemy.engine.interfaces import Dialect
-    from typing import Optional
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.engine.interfaces import Dialect
+from sqlalchemy.types import CHAR, TypeDecorator
 
 
 class UUID(TypeDecorator):
     impl = CHAR
     cache_ok = True
 
-    def load_dialect_impl(self, dialect: 'Dialect'):
+    def load_dialect_impl(self, dialect: Dialect) -> Any:
         if dialect.name == 'postgresql':
             return dialect.type_descriptor(postgresql.UUID())
         return dialect.type_descriptor(CHAR(32))
 
-    def process_bind_param(self, value, dialect: 'Dialect') -> 'Optional[str]':
+    def process_bind_param(
+        self,
+        value: Union[int, str, uuid.UUID],
+        dialect: Dialect,
+    ) -> Optional[str]:
         if value is None:
             return value
         if dialect.name == 'postgresql':
             return str(value)
-        if not isinstance(value, uuid.UUID):
+        if isinstance(value, str):
             value = uuid.UUID(value)
-        return f'{value.int:0>32x}'
+        if isinstance(value, uuid.UUID):
+            return f'{value.int:0>32x}'
+        raise TypeError
 
-    def process_result_value(self, value, dialect: 'Dialect') -> 'Optional[uuid.UUID]':
+    def process_result_value(
+        self,
+        value: Optional[Union[str, uuid.UUID]],
+        dialect: 'Dialect',
+    ) -> 'Optional[uuid.UUID]':
         if value is None:
             return value
         if not isinstance(value, uuid.UUID):

@@ -31,7 +31,7 @@ jobs:
           poetry run flake8 .
       - name: Type checking with MyPy
         run: |
-          poetry run mypy --strict
+          poetry run mypy
       - name: Test with pytest
         run: |
           poetry run pytest --cov-report term-missing --cov=sqlalchemy_things

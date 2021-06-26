@@ -66,3 +66,8 @@ files = [
     "sqlalchemy_things",
     "tests",
 ]
+plugins = "sqlalchemy.ext.mypy.plugin"
+
+[[tool.mypy.overrides]]
+module = ['sqlalchemy.*']
+ignore_missing_imports = true

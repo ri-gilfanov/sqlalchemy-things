@@ -17,7 +17,6 @@ sys.path.insert(0, os.path.abspath('.'))
 
 from sqlalchemy_things import __version__  # noqa: E402
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'sqlalchemy-things'
