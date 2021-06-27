@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 
 from sqlalchemy_things.declarative import (
     BigIntegerPrimaryKeyMixin,
+    DateTimePrimaryKeyMixin,
     IntegerPrimaryKeyMixin,
     PolymorphicMixin,
     UUIDPrimaryKeyMixin,
@@ -33,6 +34,16 @@ async def test_with_big_integer_pk(
     init_db,
 ):
     get_child_models(base_model, BigIntegerPrimaryKeyMixin)
+    await init_db(sqlite_engine, base_model)
+
+
+@pytest.mark.asyncio
+async def test_with_datetime_pk(
+    base_model: Any,
+    sqlite_engine: AsyncEngine,
+    init_db,
+):
+    get_child_models(base_model, DateTimePrimaryKeyMixin)
     await init_db(sqlite_engine, base_model)
 
 
