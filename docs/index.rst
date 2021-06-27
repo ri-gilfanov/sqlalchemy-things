@@ -35,23 +35,35 @@ Welcome to sqlalchemy-things's documentation!
   :target: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things
   :alt: codecov.io status for master branch
 
-* declarative
+Utility collection for development with SQLalchemy.
 
-  * BigIntegerPrimaryKeyMixin
-  * CascadeDateTimePrimaryKeyMixin
-  * DeclarativeMixin
-  * CascadeDeclarativeMixin
-  * CascadeBigIntegerPrimaryKeyMixin
-  * CascadeIntegerPrimaryKeyMixin
-  * CascadeUUIDPrimaryKeyMixin
-    DateTimePrimaryKeyMixin
-  * IntegerPrimaryKeyMixin
-  * PolymorphicMixin
-  * UUIDPrimaryKeyMixin
+Custom column types
+-------------------
+* types.UUIDType
 
-* types
+Mixins for signle and joined inheritance
+----------------------------------------
+* declarative.InheritedPrimaryKeyMixin
+* declarative.PolymorphicMixin
 
-  * UUIDType
+Primary key mixins for signle table inheritance
+-----------------------------------------------
+* declarative.BigIntegerPrimaryKeyMixin
+* declarative.DateTimePrimaryKeyMixin
+* declarative.IntegerPrimaryKeyMixin
+* declarative.UUIDPrimaryKeyMixin
+
+Primary key mixins for joined table inheritance
+-----------------------------------------------
+* declarative.CascadeBigIntegerPrimaryKeyMixin
+* declarative.CascadeDateTimePrimaryKeyMixin
+* declarative.CascadeIntegerPrimaryKeyMixin
+* declarative.CascadeUUIDPrimaryKeyMixin
+
+Utils for single and joined inheritance
+---------------------------------------
+* declarative.get_inherited_column
+* declarative.get_inherited_primary_key
 
 
 .. toctree::

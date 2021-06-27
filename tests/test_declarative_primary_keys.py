@@ -1,8 +1,10 @@
 import uuid
 from datetime import datetime
+from typing import Any
 
 import pytest
 import sqlalchemy as sa
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from sqlalchemy_things.declarative import (
     BigIntegerPrimaryKeyMixin,
@@ -13,8 +15,11 @@ from sqlalchemy_things.declarative import (
 
 
 @pytest.mark.asyncio
-async def test_big_integer_primary_key(base_model, sqlite_session):
-    class MyModel(base_model, BigIntegerPrimaryKeyMixin):
+async def test_big_integer_primary_key(
+    base_model: Any,
+    sqlite_session: AsyncSession,
+) -> None:
+    class MyModel(base_model, BigIntegerPrimaryKeyMixin):  # type: ignore
         __tablename__ = 'int64_pk_table'
 
     async with sqlite_session.bind.begin() as connection:
@@ -33,8 +38,11 @@ async def test_big_integer_primary_key(base_model, sqlite_session):
 
 
 @pytest.mark.asyncio
-async def test_datetime_primary_key(base_model, sqlite_session):
-    class MyModel(base_model, DateTimePrimaryKeyMixin):
+async def test_datetime_primary_key(
+    base_model: Any,
+    sqlite_session: AsyncSession,
+) -> None:
+    class MyModel(base_model, DateTimePrimaryKeyMixin):  # type: ignore
         __tablename__ = 'int64_pk_table'
 
     async with sqlite_session.bind.begin() as connection:
@@ -52,8 +60,11 @@ async def test_datetime_primary_key(base_model, sqlite_session):
 
 
 @pytest.mark.asyncio
-async def test_integer_primary_key(base_model, sqlite_session):
-    class MyModel(base_model, IntegerPrimaryKeyMixin):
+async def test_integer_primary_key(
+    base_model: Any,
+    sqlite_session: AsyncSession,
+) -> None:
+    class MyModel(base_model, IntegerPrimaryKeyMixin):  # type: ignore
         __tablename__ = 'int32_pk_table'
 
     async with sqlite_session.bind.begin() as connection:
@@ -71,8 +82,11 @@ async def test_integer_primary_key(base_model, sqlite_session):
 
 
 @pytest.mark.asyncio
-async def test_uuid_primary_key(base_model, sqlite_session):
-    class MyModel(base_model, UUIDPrimaryKeyMixin):
+async def test_uuid_primary_key(
+    base_model: Any,
+    sqlite_session: AsyncSession,
+) -> None:
+    class MyModel(base_model, UUIDPrimaryKeyMixin):  # type: ignore
         __tablename__ = 'my_table'
 
     async with sqlite_session.bind.begin() as connection:
