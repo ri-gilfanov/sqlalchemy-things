@@ -3,7 +3,7 @@ from typing import Any
 
 import sqlalchemy as sa
 
-from sqlalchemy_things.types import UUIDType
+from sqlalchemy_things.column_types import UUIDType
 
 
 def test_uuid(base_model: Any) -> None:
