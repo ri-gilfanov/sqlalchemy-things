@@ -6,7 +6,7 @@ authors = [
     "Ruslan Ilyasovich Gilfanov <ri.gilfanov@yandex.ru>",
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
