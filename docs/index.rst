@@ -38,18 +38,20 @@ Welcome to sqlalchemy-things's documentation!
 * declarative
 
   * BigIntegerPrimaryKeyMixin
+  * CascadeDateTimePrimaryKeyMixin
   * DeclarativeMixin
   * CascadeDeclarativeMixin
   * CascadeBigIntegerPrimaryKeyMixin
   * CascadeIntegerPrimaryKeyMixin
   * CascadeUUIDPrimaryKeyMixin
+    DateTimePrimaryKeyMixin
   * IntegerPrimaryKeyMixin
   * PolymorphicMixin
   * UUIDPrimaryKeyMixin
 
 * types
 
-  * UUID
+  * UUIDType
 
 
 .. toctree::
