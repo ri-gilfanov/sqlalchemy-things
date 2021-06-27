@@ -16,12 +16,16 @@ class PolymorphicMixin(DeclarativeMixin):
     }
 
 
+def get_inherited_primary_key(cls):
+    for base in cls.__bases__:
+        if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
+            table_name = getattr(base, '__tablename__')
+            foreign_key = sa.ForeignKey(f'{table_name}.pk')
+            return sa.Column(foreign_key, primary_key=True)
+
+
 @orm.declarative_mixin
 class InheritedPrimaryKeyMixin(CascadeDeclarativeMixin):
     @orm.declared_attr.cascading
     def pk(cls) -> sa.Column:
-        for base in cls.__bases__:
-            if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
-                table_name = getattr(base, '__tablename__')
-                foreign_key = sa.ForeignKey(f'{table_name}.pk')
-                return sa.Column(foreign_key, primary_key=True)
+        return get_inherited_primary_key(cls)

@@ -7,6 +7,7 @@ from sqlalchemy_things.declarative.abstract import (
     CascadeDeclarativeMixin,
     DeclarativeMixin,
 )
+from sqlalchemy_things.declarative.inheritance import get_inherited_primary_key
 from sqlalchemy_things.types import UUIDType
 
 
@@ -26,12 +27,7 @@ class CascadeBigIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(sa.BigInteger, primary_key=True)
-
-        for base in cls.__bases__:
-            if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
-                table_name = getattr(base, '__tablename__')
-                foreign_key = sa.ForeignKey(f'{table_name}.pk')
-                return sa.Column(foreign_key, primary_key=True)
+        return get_inherited_primary_key(cls)
 
 
 @orm.declarative_mixin
@@ -50,12 +46,7 @@ class CascadeIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(sa.Integer, primary_key=True)
-
-        for base in cls.__bases__:
-            if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
-                table_name = getattr(base, '__tablename__')
-                foreign_key = sa.ForeignKey(f'{table_name}.pk')
-                return sa.Column(foreign_key, primary_key=True)
+        return get_inherited_primary_key(cls)
 
 
 @orm.declarative_mixin
@@ -74,9 +65,4 @@ class CascadeUUIDPrimaryKeyMixin(CascadeDeclarativeMixin):
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(UUIDType, primary_key=True, default=uuid4)
-
-        for base in cls.__bases__:
-            if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
-                table_name = getattr(base, '__tablename__')
-                foreign_key = sa.ForeignKey(f'{table_name}.pk')
-                return sa.Column(foreign_key, primary_key=True)
+        return get_inherited_primary_key(cls)
