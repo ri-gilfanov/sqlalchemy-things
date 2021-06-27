@@ -1,3 +1,3 @@
-from sqlalchemy_things.types.uuid import UUID
+from sqlalchemy_things.types.uuid import UUIDType
 
-__all__ = ['UUID']
+__all__ = ['UUIDType']

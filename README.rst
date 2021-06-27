@@ -30,3 +30,21 @@ sqlalchemy-things
 .. |Codecov| image:: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things
   :alt: codecov.io status for master branch
+
+* declarative
+
+  * BigIntegerPrimaryKeyMixin
+  * CascadeDateTimePrimaryKeyMixin
+  * DeclarativeMixin
+  * CascadeDeclarativeMixin
+  * CascadeBigIntegerPrimaryKeyMixin
+  * CascadeIntegerPrimaryKeyMixin
+  * CascadeUUIDPrimaryKeyMixin
+    DateTimePrimaryKeyMixin
+  * IntegerPrimaryKeyMixin
+  * PolymorphicMixin
+  * UUIDPrimaryKeyMixin
+
+* types
+
+  * UUIDType

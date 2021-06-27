@@ -5,7 +5,6 @@
 
 Welcome to sqlalchemy-things's documentation!
 =============================================
-
 |ReadTheDocs| |PyPI release| |PyPI downloads| |License| |Python versions| |GitHub CI| |Codecov|
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/sqlalchemy-things/badge/?version=latest
@@ -35,6 +34,25 @@ Welcome to sqlalchemy-things's documentation!
 .. |Codecov| image:: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things
   :alt: codecov.io status for master branch
+
+* declarative
+
+  * BigIntegerPrimaryKeyMixin
+  * CascadeDateTimePrimaryKeyMixin
+  * DeclarativeMixin
+  * CascadeDeclarativeMixin
+  * CascadeBigIntegerPrimaryKeyMixin
+  * CascadeIntegerPrimaryKeyMixin
+  * CascadeUUIDPrimaryKeyMixin
+    DateTimePrimaryKeyMixin
+  * IntegerPrimaryKeyMixin
+  * PolymorphicMixin
+  * UUIDPrimaryKeyMixin
+
+* types
+
+  * UUIDType
+
 
 .. toctree::
    :maxdepth: 2
