@@ -6,7 +6,7 @@ from sqlalchemy.engine.interfaces import Dialect
 from sqlalchemy.types import CHAR, TypeDecorator
 
 
-class UUID(TypeDecorator):
+class UUIDType(TypeDecorator):
     impl = CHAR
     cache_ok = True
 

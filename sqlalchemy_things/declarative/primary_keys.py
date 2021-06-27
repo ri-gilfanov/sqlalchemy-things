@@ -7,7 +7,7 @@ from sqlalchemy_things.declarative.abstract import (
     CascadeDeclarativeMixin,
     DeclarativeMixin,
 )
-from sqlalchemy_things.types import UUID
+from sqlalchemy_things.types import UUIDType
 
 
 @orm.declarative_mixin
@@ -62,7 +62,7 @@ class CascadeIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
 class UUIDPrimaryKeyMixin(DeclarativeMixin):
     @orm.declared_attr
     def pk(cls) -> sa.Column:
-        default = sa.Column(UUID, primary_key=True, default=uuid4)
+        default = sa.Column(UUIDType, primary_key=True, default=uuid4)
         if hasattr(cls, '__table__'):
             return cls.__table__.c.get('pk', default)
         return default
@@ -73,7 +73,7 @@ class CascadeUUIDPrimaryKeyMixin(CascadeDeclarativeMixin):
     @orm.declared_attr.cascading
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
-            return sa.Column(UUID, primary_key=True, default=uuid4)
+            return sa.Column(UUIDType, primary_key=True, default=uuid4)
 
         for base in cls.__bases__:
             if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
