@@ -1,4 +1,4 @@
-from sqlalchemy_things import declarative, types
+from sqlalchemy_things import column_types, declarative
 
-__version__ = '0.1a3'
-__all__ = ['declarative', 'types']
+__version__ = '0.1b1'
+__all__ = ['declarative', 'column_types']

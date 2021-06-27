@@ -4,13 +4,13 @@ from uuid import uuid4
 import sqlalchemy as sa
 from sqlalchemy import orm
 
+from sqlalchemy_things.column_types import UUIDType
 from sqlalchemy_things.declarative.base import (
     CascadeDeclarativeMixin,
     DeclarativeMixin,
     get_inherited_column,
     get_inherited_primary_key,
 )
-from sqlalchemy_things.types import UUIDType
 
 
 @orm.declarative_mixin
