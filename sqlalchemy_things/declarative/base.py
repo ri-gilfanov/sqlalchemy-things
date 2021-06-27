@@ -1,10 +1,17 @@
-import sqlalchemy as sa
-from sqlalchemy import orm
+from typing import Any, Iterable, Optional
 
-from sqlalchemy_things.declarative import (
-    CascadeDeclarativeMixin,
-    DeclarativeMixin,
-)
+import sqlalchemy as sa
+from sqlalchemy import Table, orm
+
+
+@orm.declarative_mixin
+class DeclarativeMixin:
+    __table__: 'Table'
+
+
+@orm.declarative_mixin
+class CascadeDeclarativeMixin(DeclarativeMixin):
+    __bases__: Iterable[Any]
 
 
 @orm.declarative_mixin
@@ -16,21 +23,29 @@ class PolymorphicMixin(DeclarativeMixin):
     }
 
 
-def get_inherited_column(cls, key, default):
+def get_inherited_column(
+    cls: Any,
+    key: str,
+    default: sa.Column,
+) -> Optional[sa.Column]:
     if hasattr(cls, '__table__'):
         return cls.__table__.c.get(key, default)
+    return None
 
 
-def get_inherited_primary_key(cls):
+def get_inherited_primary_key(cls: Any) -> Optional[sa.Column]:
     for base in cls.__bases__:
-        if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
+        # TODO: after dropped Python 3.7
+        # if table_name := getattr(base, '__tablename__'):
+        if getattr(base, '__tablename__'):
             table_name = getattr(base, '__tablename__')
             foreign_key = sa.ForeignKey(f'{table_name}.pk')
             return sa.Column(foreign_key, primary_key=True)
+    return None
 
 
 @orm.declarative_mixin
 class InheritedPrimaryKeyMixin(CascadeDeclarativeMixin):
-    @orm.declared_attr.cascading
+    @orm.declared_attr.cascading  # type: ignore
     def pk(cls) -> sa.Column:
         return get_inherited_primary_key(cls)

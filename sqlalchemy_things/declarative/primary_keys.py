@@ -4,11 +4,9 @@ from uuid import uuid4
 import sqlalchemy as sa
 from sqlalchemy import orm
 
-from sqlalchemy_things.declarative.abstract import (
+from sqlalchemy_things.declarative.base import (
     CascadeDeclarativeMixin,
     DeclarativeMixin,
-)
-from sqlalchemy_things.declarative.inheritance import (
     get_inherited_column,
     get_inherited_primary_key,
 )
@@ -17,7 +15,7 @@ from sqlalchemy_things.types import UUIDType
 
 @orm.declarative_mixin
 class BigIntegerPrimaryKeyMixin(DeclarativeMixin):
-    @orm.declared_attr
+    @orm.declared_attr  # type: ignore
     def pk(cls) -> sa.Column:
         default = sa.Column(sa.BigInteger, primary_key=True)
         get_inherited_column(cls, 'pk', default)
@@ -26,7 +24,7 @@ class BigIntegerPrimaryKeyMixin(DeclarativeMixin):
 
 @orm.declarative_mixin
 class CascadeBigIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
-    @orm.declared_attr.cascading
+    @orm.declared_attr.cascading  # type: ignore
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(sa.BigInteger, primary_key=True)
@@ -35,7 +33,7 @@ class CascadeBigIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
 
 @orm.declarative_mixin
 class DateTimePrimaryKeyMixin(DeclarativeMixin):
-    @orm.declared_attr
+    @orm.declared_attr  # type: ignore
     def pk(cls) -> sa.Column:
         default = sa.Column(sa.DateTime, primary_key=True, default=datetime.now)
         get_inherited_column(cls, 'pk', default)
@@ -43,8 +41,8 @@ class DateTimePrimaryKeyMixin(DeclarativeMixin):
 
 
 @orm.declarative_mixin
-class CascadeDateTimePrimaryKeyMixin(DeclarativeMixin):
-    @orm.declared_attr.cascading
+class CascadeDateTimePrimaryKeyMixin(CascadeDeclarativeMixin):
+    @orm.declared_attr.cascading  # type: ignore
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(sa.DateTime, primary_key=True,
@@ -54,7 +52,7 @@ class CascadeDateTimePrimaryKeyMixin(DeclarativeMixin):
 
 @orm.declarative_mixin
 class IntegerPrimaryKeyMixin(DeclarativeMixin):
-    @orm.declared_attr
+    @orm.declared_attr  # type: ignore
     def pk(cls) -> sa.Column:
         default = sa.Column(sa.Integer, primary_key=True)
         get_inherited_column(cls, 'pk', default)
@@ -63,7 +61,7 @@ class IntegerPrimaryKeyMixin(DeclarativeMixin):
 
 @orm.declarative_mixin
 class CascadeIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
-    @orm.declared_attr.cascading
+    @orm.declared_attr.cascading  # type: ignore
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(sa.Integer, primary_key=True)
@@ -72,7 +70,7 @@ class CascadeIntegerPrimaryKeyMixin(CascadeDeclarativeMixin):
 
 @orm.declarative_mixin
 class UUIDPrimaryKeyMixin(DeclarativeMixin):
-    @orm.declared_attr
+    @orm.declared_attr  # type: ignore
     def pk(cls) -> sa.Column:
         default = sa.Column(UUIDType, primary_key=True, default=uuid4)
         get_inherited_column(cls, 'pk', default)
@@ -81,7 +79,7 @@ class UUIDPrimaryKeyMixin(DeclarativeMixin):
 
 @orm.declarative_mixin
 class CascadeUUIDPrimaryKeyMixin(CascadeDeclarativeMixin):
-    @orm.declared_attr.cascading
+    @orm.declared_attr.cascading  # type: ignore
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
             return sa.Column(UUIDType, primary_key=True, default=uuid4)

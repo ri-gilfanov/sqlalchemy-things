@@ -22,18 +22,21 @@ def sqlite_engine() -> AsyncEngine:
 
 
 @pytest.fixture
-def sqlite_session_factory(sqlite_engine):
+def sqlite_session_factory(sqlite_engine: AsyncEngine) -> Any:
     return orm.sessionmaker(sqlite_engine, AsyncSession)
 
 
 @pytest.fixture
-def sqlite_session(sqlite_session_factory):
+def sqlite_session(sqlite_session_factory: Any) -> AsyncSession:
     return sqlite_session_factory()
 
 
 @pytest.fixture
 def init_db() -> Callable[..., Awaitable[None]]:
-    async def create_tables(sqlite_engine: AsyncEngine, base_model: Any):
+    async def create_tables(
+        sqlite_engine: AsyncEngine,
+        base_model: Any,
+    ) -> None:
         async with sqlite_engine.begin() as conn:
             await conn.run_sync(base_model.metadata.create_all)
     return create_tables

@@ -1,8 +1,8 @@
-from sqlalchemy_things.declarative.abstract import (
+from sqlalchemy_things.declarative.base import (
     CascadeDeclarativeMixin,
     DeclarativeMixin,
+    PolymorphicMixin,
 )
-from sqlalchemy_things.declarative.inheritance import PolymorphicMixin
 from sqlalchemy_things.declarative.primary_keys import (
     BigIntegerPrimaryKeyMixin,
     CascadeBigIntegerPrimaryKeyMixin,
