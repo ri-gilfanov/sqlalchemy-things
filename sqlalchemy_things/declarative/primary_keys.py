@@ -7,7 +7,10 @@ from sqlalchemy_things.declarative.abstract import (
     CascadeDeclarativeMixin,
     DeclarativeMixin,
 )
-from sqlalchemy_things.declarative.inheritance import get_inherited_primary_key
+from sqlalchemy_things.declarative.inheritance import (
+    get_inherited_column,
+    get_inherited_primary_key,
+)
 from sqlalchemy_things.types import UUIDType
 
 
@@ -16,8 +19,7 @@ class BigIntegerPrimaryKeyMixin(DeclarativeMixin):
     @orm.declared_attr
     def pk(cls) -> sa.Column:
         default = sa.Column(sa.BigInteger, primary_key=True)
-        if hasattr(cls, '__table__'):
-            return cls.__table__.c.get('pk', default)
+        get_inherited_column(cls, 'pk', default)
         return default
 
 
@@ -35,8 +37,7 @@ class IntegerPrimaryKeyMixin(DeclarativeMixin):
     @orm.declared_attr
     def pk(cls) -> sa.Column:
         default = sa.Column(sa.Integer, primary_key=True)
-        if hasattr(cls, '__table__'):
-            return cls.__table__.c.get('pk', default)
+        get_inherited_column(cls, 'pk', default)
         return default
 
 
@@ -54,8 +55,7 @@ class UUIDPrimaryKeyMixin(DeclarativeMixin):
     @orm.declared_attr
     def pk(cls) -> sa.Column:
         default = sa.Column(UUIDType, primary_key=True, default=uuid4)
-        if hasattr(cls, '__table__'):
-            return cls.__table__.c.get('pk', default)
+        get_inherited_column(cls, 'pk', default)
         return default
 
 

@@ -16,6 +16,11 @@ class PolymorphicMixin(DeclarativeMixin):
     }
 
 
+def get_inherited_column(cls, key, default):
+    if hasattr(cls, '__table__'):
+        return cls.__table__.c.get(key, default)
+
+
 def get_inherited_primary_key(cls):
     for base in cls.__bases__:
         if hasattr(base, '__tablename__') and hasattr(base, 'pk'):
