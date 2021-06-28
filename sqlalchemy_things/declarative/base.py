@@ -16,7 +16,7 @@ class CascadeDeclarativeMixin(DeclarativeMixin):
 
 @orm.declarative_mixin
 class PolymorphicMixin(DeclarativeMixin):
-    definition = sa.Column(sa.String, nullable=False)
+    definition = sa.Column(sa.String(40), nullable=False)
 
     __mapper_args__ = {
         'polymorphic_on': definition,
