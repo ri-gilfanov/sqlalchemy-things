@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "sqlalchemy-things"
-version = "0.1b2"
-description = "Utility collection for development with SQLalchemy."
+version = "0.1.0"
+description = "Utility collection for development with SQLalchemy ORM."
 authors = [
     "Ruslan Ilyasovich Gilfanov <ri.gilfanov@yandex.ru>",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -25,7 +25,7 @@ repository = "https://github.com/ri-gilfanov/sqlalchemy-things"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-sqlalchemy = "^1.4.18"
+sqlalchemy = "^1.4.20"
 aiomysql = { version = ">=0.0.21", optional = true }
 aiosqlite = { version = ">=0.17.0", optional = true }
 asyncpg = { version = ">=0.23.0", optional = true }
@@ -56,11 +56,6 @@ known_first_party = ["sqlalchemy_things"]
 known_third_party = ["sqlalchemy"]
 profile = "wemake"
 src_paths = ["sqlalchemy_things", "tests"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "if TYPE_CHECKING",
-]
 
 [tool.mypy]
 files = [
