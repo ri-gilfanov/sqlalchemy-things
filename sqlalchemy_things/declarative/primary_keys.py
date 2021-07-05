@@ -15,7 +15,12 @@ from sqlalchemy_things.declarative.base import (
 
 @orm.declarative_mixin
 class BigIntegerPrimaryKeyMixin(DeclarativeMixin):
-    """Big integer primary key mixin."""
+    """
+    Big integer primary key mixin.
+
+    .. warning::
+      SQLite backend not support autoincrement for BigInteger column type.
+    """
     @orm.declared_attr  # type: ignore
     def pk(cls) -> sa.Column:
         default = sa.Column(sa.BigInteger, primary_key=True)
@@ -25,7 +30,12 @@ class BigIntegerPrimaryKeyMixin(DeclarativeMixin):
 
 @orm.declarative_mixin
 class CascadeBigIntegerPrimaryKeyMixin(InheritedDeclarativeMixin):
-    """Cascade big integer primary key mixin for joined table inheritance."""
+    """
+    Cascade big integer primary key mixin for joined table inheritance.
+
+    .. warning::
+      SQLite backend not support autoincrement for BigInteger column type.
+    """
     @orm.declared_attr.cascading  # type: ignore
     def pk(cls) -> sa.Column:
         if orm.has_inherited_table(cls) is False:
@@ -90,7 +100,8 @@ class ParentPrimaryKeyMixin(InheritedDeclarativeMixin):
     Parent primary key mixin for child class in joined table inheritance without
     cascade primary key mixin.
 
-    Warning. This mixin must be before parent class by use.
+    .. warning::
+      This mixin must precede the parent class when declaring a child class.
     """
     @orm.declared_attr  # type: ignore
     def pk(cls) -> sa.Column:
