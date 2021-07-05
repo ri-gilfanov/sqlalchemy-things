@@ -23,11 +23,11 @@ def get_child_models(
 
     class ChildA(Parent):
         __mapper_args__ = {'polymorphic_identity': 'child_a'}
-        field_a = sa.Column(sa.String(255))
+        some_field = sa.Column(sa.String(255))
 
     class ChildB(Parent):
         __mapper_args__ = {'polymorphic_identity': 'child_b'}
-        field_b = sa.Column(sa.String(127))
+        other_field = sa.Column(sa.String(127))
     return ChildA, ChildB
 
 

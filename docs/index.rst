@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sqlalchemy-things's documentation!
-=============================================
+sqlalchemy-things's documentation
+=================================
 |ReadTheDocs| |PyPI release| |PyPI downloads| |License| |Python versions| |GitHub CI| |Codecov|
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/sqlalchemy-things/badge/?version=latest
@@ -38,43 +38,11 @@ Welcome to sqlalchemy-things's documentation!
 Utility collection for development with `SQLAlchemy 1.4 / 2.0
 <https://www.sqlalchemy.org/>`_ ORM.
 
-Custom column types
--------------------
-* column_types.UUIDType
-
-Mixins for signle and joined inheritance
-----------------------------------------
-* declarative.InheritedPrimaryKeyMixin
-* declarative.PolymorphicMixin
-
-Primary key mixins for signle table inheritance
------------------------------------------------
-* declarative.BigIntegerPrimaryKeyMixin
-* declarative.DateTimePrimaryKeyMixin
-* declarative.IntegerPrimaryKeyMixin
-* declarative.UUIDPrimaryKeyMixin
-
-Primary key mixins for joined table inheritance
------------------------------------------------
-* declarative.CascadeBigIntegerPrimaryKeyMixin
-* declarative.CascadeDateTimePrimaryKeyMixin
-* declarative.CascadeIntegerPrimaryKeyMixin
-* declarative.CascadeUUIDPrimaryKeyMixin
-
-Utils for single and joined inheritance
----------------------------------------
-* declarative.get_inherited_column
-* declarative.get_inherited_primary_key
-
-
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+  :maxdepth: 1
+  :caption: Contents
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+  installation
+  examples
+  reference
+  releases

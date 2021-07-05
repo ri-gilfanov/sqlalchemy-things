@@ -7,6 +7,7 @@ from sqlalchemy.types import CHAR, TypeDecorator
 
 
 class UUIDType(TypeDecorator):  # type: ignore
+    """Backend-agnostic UUID type."""
     impl = CHAR
     cache_ok = True
 
