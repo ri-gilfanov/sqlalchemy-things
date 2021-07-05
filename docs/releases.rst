@@ -1,7 +1,7 @@
 Releases
 ========
-Unreleased
-----------
+Version 0.2.0
+-------------
 **Changed**
 
 * Rename `key` arg to `name` in ``declarative.get_inherited_column()``.
