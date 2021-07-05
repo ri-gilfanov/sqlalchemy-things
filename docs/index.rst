@@ -35,7 +35,8 @@ Welcome to sqlalchemy-things's documentation!
   :target: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things
   :alt: codecov.io status for master branch
 
-Utility collection for development with SQLalchemy.
+Utility collection for development with `SQLAlchemy 1.4 / 2.0
+<https://www.sqlalchemy.org/>`_ ORM.
 
 Custom column types
 -------------------
