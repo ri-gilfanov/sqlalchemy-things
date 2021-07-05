@@ -26,10 +26,15 @@ class PolymorphicMixin(DeclarativeMixin):
 
 def get_inherited_column(
     cls: Any,
-    key: str,
+    name: str,
     default: sa.Column,
 ) -> Optional[sa.Column]:
-    """Utility function for column inheriting in mixins."""
+    """
+    Utility function for column inheriting in mixins.
+
+    :param name: column name of parent class;
+    :param default: default value if not found in parent class.
+    """
     if hasattr(cls, '__table__'):
-        return cls.__table__.c.get(key, default)
+        return cls.__table__.c.get(name, default)
     return None
