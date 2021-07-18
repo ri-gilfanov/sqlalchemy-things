@@ -1,15 +1,29 @@
 Releases
 ========
+Version 0.6.0
+-------------
+**Added**
+
+* ``max_page`` attribute for ``pagination.OffsetPaginator``.
+
+**Changed**
+
+* Renamed ``next`` attribute to ``next_number`` in ``pagination.OffsetPage``;
+* Renamed ``previous`` attribute to ``previous_number``
+  in ``pagination.OffsetPage``;
+* Renamed ``limit`` attribute to ``page_size``
+  in ``pagination.OffsetPaginator``.
+
 Version 0.5.0
 -------------
 **Changed**
 
 * Renamed ``pagination.CountOffsetPage`` to ``pagination.OffsetPage``;
 * Renamed ``pagination.CountOffsetPaginator`` to ``pagination.OffsetPaginator``;
-* Renamed ``get_async`` attribute to ``get_page_async``
+* Renamed ``get_async`` method to ``get_page_async``
   in ``pagination.OffsetPaginator``;
-* Renamed ``get_sync`` attribute to ``get_page_sync``
-  in ``pagination.OffsetPaginator``;
+* Renamed ``get_sync`` method to ``get_page_sync``
+  in ``pagination.OffsetPaginator``.
 
 Version 0.4.0
 -------------
