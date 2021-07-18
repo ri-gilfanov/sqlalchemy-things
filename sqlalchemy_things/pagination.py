@@ -37,7 +37,8 @@ class OffsetPaginator:
             select(count()).select_from(stmt.subquery())
         )).scalar_one()
 
-        stmt = stmt.limit(self.page_size).offset((page_number - 1) * self.page_size)
+        stmt = stmt.limit(self.page_size)
+        stmt = stmt.offset((page_number - 1) * self.page_size)
         items = (await session.execute(stmt)).scalars()
 
         return self.prepare_page_instance(page_number, total_items, items)
@@ -53,12 +54,17 @@ class OffsetPaginator:
             select(count()).select_from(stmt.subquery())
         ).scalar_one()
 
-        stmt = stmt.limit(self.page_size).offset((page_number - 1) * self.page_size)
+        stmt = stmt.limit(self.page_size)
+        stmt = stmt.offset((page_number - 1) * self.page_size)
         items = session.execute(stmt).scalars()
 
         return self.prepare_page_instance(page_number, total_items, items)
 
-    def handle_max_page_attribute(self, stmt, page_number) -> Select:
+    def handle_max_page_attribute(
+        self,
+        stmt: Select,
+        page_number: int,
+    ) -> Select:
         if self.max_page:
             if page_number > self.max_page:
                 raise ValueError
