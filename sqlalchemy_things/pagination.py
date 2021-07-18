@@ -11,19 +11,20 @@ class OffsetPage:
     def __init__(
         self,
         items: Union[AsyncScalarResult, ScalarResult],
-        next: Optional[int],
-        previous: Optional[int],
+        next_number: Optional[int],
+        previous_number: Optional[int],
         total_items: int,
     ):
         self.items = items
-        self.next = next
-        self.previous = previous
+        self.next_number = next_number
+        self.previous_number = previous_number
         self.total_items = total_items
 
 
 class OffsetPaginator:
-    def __init__(self, limit: int = 10):
-        self.limit = limit
+    def __init__(self, page_size: int = 10, max_page: Optional[int] = None):
+        self.page_size = page_size
+        self.max_page = max_page
 
     async def get_page_async(
         self,
@@ -31,12 +32,14 @@ class OffsetPaginator:
         stmt: Select,
         page_number: int,
     ) -> OffsetPage:
-
+        stmt = self.handle_max_page_attribute(stmt, page_number)
         total_items = (await session.execute(
-            select(count()).select_from(stmt)
+            select(count()).select_from(stmt.subquery())
         )).scalar_one()
-        stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
+
+        stmt = stmt.limit(self.page_size).offset((page_number - 1) * self.page_size)
         items = (await session.execute(stmt)).scalars()
+
         return self.prepare_page_instance(page_number, total_items, items)
 
     def get_page_sync(
@@ -45,12 +48,25 @@ class OffsetPaginator:
         stmt: Select,
         page_number: int,
     ) -> OffsetPage:
+        stmt = self.handle_max_page_attribute(stmt, page_number)
         total_items = session.execute(
-            select(count()).select_from(stmt)
+            select(count()).select_from(stmt.subquery())
         ).scalar_one()
-        stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
+
+        stmt = stmt.limit(self.page_size).offset((page_number - 1) * self.page_size)
         items = session.execute(stmt).scalars()
+
         return self.prepare_page_instance(page_number, total_items, items)
+
+    def handle_max_page_attribute(self, stmt, page_number) -> Select:
+        if self.max_page:
+            if page_number > self.max_page:
+                raise ValueError
+
+            if self.max_page:
+                stmt = stmt.limit(self.max_page * self.page_size)
+
+        return stmt
 
     def prepare_page_instance(
         self,
@@ -58,17 +74,17 @@ class OffsetPaginator:
         total_items: int,
         items: AsyncScalarResult,
     ) -> OffsetPage:
-        previous_page_number = None
+        previous_number = None
         if page_number > 1:
-            previous_page_number = page_number - 1
+            previous_number = page_number - 1
 
-        next_page_number = None
-        if page_number * self.limit < total_items:
-            next_page_number = page_number + 1
+        next_number = None
+        if page_number * self.page_size < total_items:
+            next_number = page_number + 1
 
         return OffsetPage(
             items=items,
-            next=next_page_number,
-            previous=previous_page_number,
+            next_number=next_number,
+            previous_number=previous_number,
             total_items=total_items,
         )
