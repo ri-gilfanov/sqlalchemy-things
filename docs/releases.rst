@@ -1,5 +1,11 @@
 Releases
 ========
+Version 0.3.0
+-------------
+**Changed**
+
+* Rename ``definition`` attribute to ``discriminator`` in ``PolymorphicMixin``;
+
 Version 0.2.0
 -------------
 **Changed**
