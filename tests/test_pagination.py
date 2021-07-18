@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.expression import select
 
-from sqlalchemy_things.pagination import OffsetPage, OffsetPaginator
+from sqlalchemy_things.pagination import OffsetPaginator
 
 
 @pytest.mark.asyncio
@@ -25,34 +25,30 @@ async def test_count_offset_page_async(
         stmt = select(mapped_class)
         paginator = OffsetPaginator(max_page=10)
 
-        page: OffsetPage = await paginator.get_page_async(
-            sqlite_async_session, stmt, 1)
-        items = tuple(page.items)
+        await paginator.prepare_page_async(sqlite_async_session, stmt, 1)
+        items = tuple(paginator.get_items())
         for item in items:
             assert isinstance(item, mapped_class)
             assert isinstance(item.pk, int)
             assert isinstance(item.created_at, datetime)
-        assert page.previous_number is None
-        assert page.next_number == 2
+        assert paginator.get_previous_page_number() is None
+        assert paginator.get_next_page_number() == 2
+        assert paginator.get_last_page_number() == 10
         assert len(items) == 10
-        assert page.total_items == 92
+        assert paginator.total_items == 92
 
-        page = await paginator.get_page_async(
-            sqlite_async_session, stmt, 5)
-        assert page.previous_number == 4
-        assert page.next_number == 6
-        assert len(tuple(page.items)) == 10
-        assert page.total_items == 92
+        await paginator.prepare_page_async(sqlite_async_session, stmt, 5)
+        assert paginator.get_previous_page_number() == 4
+        assert paginator.get_next_page_number() == 6
+        assert len(tuple(paginator.get_items())) == 10
 
-        page = await paginator.get_page_async(
-            sqlite_async_session, stmt, 10)
-        assert page.previous_number == 9
-        assert page.next_number is None
-        assert len(tuple(page.items)) == 2
-        assert page.total_items == 92
+        await paginator.prepare_page_async(sqlite_async_session, stmt, 10)
+        assert paginator.get_previous_page_number() == 9
+        assert paginator.get_next_page_number() is None
+        assert len(tuple(paginator.get_items())) == 2
 
         with pytest.raises(ValueError):
-            await paginator.get_page_async(sqlite_async_session, stmt, 11)
+            await paginator.prepare_page_async(sqlite_async_session, stmt, 11)
 
 
 def test_count_offset_page_sync(
@@ -70,31 +66,27 @@ def test_count_offset_page_sync(
         stmt = select(mapped_class)
         paginator = OffsetPaginator(max_page=10)
 
-        page: OffsetPage = paginator.get_page_sync(
-            sqlite_sync_session, stmt, 1)
-        items = tuple(page.items)
+        paginator.prepare_page_sync(sqlite_sync_session, stmt, 1)
+        items = tuple(paginator.get_items())
         for item in items:
             assert isinstance(item, mapped_class)
             assert isinstance(item.pk, int)
             assert isinstance(item.created_at, datetime)
-        assert page.previous_number is None
-        assert page.next_number == 2
+        assert paginator.get_previous_page_number() is None
+        assert paginator.get_next_page_number() == 2
+        assert paginator.get_last_page_number() == 10
         assert len(items) == 10
-        assert page.total_items == 92
+        assert paginator.total_items == 92
 
-        page = paginator.get_page_sync(
-            sqlite_sync_session, stmt, 5)
-        assert page.previous_number == 4
-        assert page.next_number == 6
-        assert len(tuple(page.items)) == 10
-        assert page.total_items == 92
+        paginator.prepare_page_sync(sqlite_sync_session, stmt, 5)
+        assert paginator.get_previous_page_number() == 4
+        assert paginator.get_next_page_number() == 6
+        assert len(tuple(paginator.get_items())) == 10
 
-        page = paginator.get_page_sync(
-            sqlite_sync_session, stmt, 10)
-        assert page.previous_number == 9
-        assert page.next_number is None
-        assert len(tuple(page.items)) == 2
-        assert page.total_items == 92
+        paginator.prepare_page_sync(sqlite_sync_session, stmt, 10)
+        assert paginator.get_previous_page_number() == 9
+        assert paginator.get_next_page_number() is None
+        assert len(tuple(paginator.get_items())) == 2
 
         with pytest.raises(ValueError):
-            paginator.get_page_sync(sqlite_sync_session, stmt, 11)
+            paginator.prepare_page_sync(sqlite_sync_session, stmt, 11)
