@@ -4,23 +4,26 @@ Version 0.5.0
 -------------
 **Changed**
 
-* Rename ``get_async`` attribute to ``get_page_async``
-  in ``CountOffsetPaginator``;
-* Rename ``get_sync`` attribute to ``get_page_sync``
-  in ``CountOffsetPaginator``;
+* Renamed ``pagination.CountOffsetPage`` to ``pagination.OffsetPage``;
+* Renamed ``pagination.CountOffsetPaginator`` to ``pagination.OffsetPaginator``;
+* Renamed ``get_async`` attribute to ``get_page_async``
+  in ``pagination.OffsetPaginator``;
+* Renamed ``get_sync`` attribute to ``get_page_sync``
+  in ``pagination.OffsetPaginator``;
 
 Version 0.4.0
 -------------
 **Added**
 
-* ``CountOffsetPage``;
-* ``CountOffsetPaginator``.
+* ``pagination.CountOffsetPage``;
+* ``pagination.CountOffsetPaginator``.
 
 Version 0.3.0
 -------------
 **Changed**
 
-* Rename ``definition`` attribute to ``discriminator`` in ``PolymorphicMixin``.
+* Rename ``definition`` attribute to ``discriminator``
+  in ``declarative.PolymorphicMixin``.
 
 Version 0.2.0
 -------------

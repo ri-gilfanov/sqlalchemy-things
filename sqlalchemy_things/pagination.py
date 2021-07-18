@@ -7,7 +7,7 @@ from sqlalchemy.sql import Select, select
 from sqlalchemy.sql.functions import count
 
 
-class CountOffsetPage:
+class OffsetPage:
     def __init__(
         self,
         items: Union[AsyncScalarResult, ScalarResult],
@@ -21,7 +21,7 @@ class CountOffsetPage:
         self.total_items = total_items
 
 
-class CountOffsetPaginator:
+class OffsetPaginator:
     def __init__(self, limit: int = 10):
         self.limit = limit
 
@@ -30,7 +30,7 @@ class CountOffsetPaginator:
         session: AsyncSession,
         stmt: Select,
         page_number: int,
-    ) -> CountOffsetPage:
+    ) -> OffsetPage:
 
         total_items = (await session.execute(
             select(count()).select_from(stmt)
@@ -44,7 +44,7 @@ class CountOffsetPaginator:
         session: Session,
         stmt: Select,
         page_number: int,
-    ) -> CountOffsetPage:
+    ) -> OffsetPage:
         total_items = session.execute(
             select(count()).select_from(stmt)
         ).scalar_one()
@@ -57,7 +57,7 @@ class CountOffsetPaginator:
         page_number: int,
         total_items: int,
         items: AsyncScalarResult,
-    ) -> CountOffsetPage:
+    ) -> OffsetPage:
         previous_page_number = None
         if page_number > 1:
             previous_page_number = page_number - 1
@@ -66,7 +66,7 @@ class CountOffsetPaginator:
         if page_number * self.limit < total_items:
             next_page_number = page_number + 1
 
-        return CountOffsetPage(
+        return OffsetPage(
             items=items,
             next=next_page_number,
             previous=previous_page_number,
