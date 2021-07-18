@@ -7,7 +7,7 @@ from sqlalchemy.sql import Select, select
 from sqlalchemy.sql.functions import count
 
 
-class CountOffsetPage:
+class OffsetPage:
     def __init__(
         self,
         items: Union[AsyncScalarResult, ScalarResult],
@@ -21,36 +21,34 @@ class CountOffsetPage:
         self.total_items = total_items
 
 
-class CountOffsetPaginator:
+class OffsetPaginator:
     def __init__(self, limit: int = 10):
         self.limit = limit
 
-    async def get_async(
+    async def get_page_async(
         self,
         session: AsyncSession,
         stmt: Select,
         page_number: int,
-    ) -> CountOffsetPage:
+    ) -> OffsetPage:
 
         total_items = (await session.execute(
             select(count()).select_from(stmt)
         )).scalar_one()
-        stmt = stmt.limit(self.limit)
-        stmt = stmt.offset((page_number - 1) * self.limit)
+        stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
         items = (await session.execute(stmt)).scalars()
         return self.prepare_page_instance(page_number, total_items, items)
 
-    def get_sync(
+    def get_page_sync(
         self,
         session: Session,
         stmt: Select,
         page_number: int,
-    ) -> CountOffsetPage:
+    ) -> OffsetPage:
         total_items = session.execute(
             select(count()).select_from(stmt)
         ).scalar_one()
-        stmt = stmt.limit(self.limit)
-        stmt = stmt.offset((page_number - 1) * self.limit)
+        stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
         items = session.execute(stmt).scalars()
         return self.prepare_page_instance(page_number, total_items, items)
 
@@ -59,7 +57,7 @@ class CountOffsetPaginator:
         page_number: int,
         total_items: int,
         items: AsyncScalarResult,
-    ) -> CountOffsetPage:
+    ) -> OffsetPage:
         previous_page_number = None
         if page_number > 1:
             previous_page_number = page_number - 1
@@ -68,7 +66,7 @@ class CountOffsetPaginator:
         if page_number * self.limit < total_items:
             next_page_number = page_number + 1
 
-        return CountOffsetPage(
+        return OffsetPage(
             items=items,
             next=next_page_number,
             previous=previous_page_number,

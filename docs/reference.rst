@@ -56,11 +56,11 @@ Primary key mixins for joined table inheritance
 
 Pagination
 ----------
-.. autoclass:: sqlalchemy_things.pagination.CountOffsetPage
+.. autoclass:: sqlalchemy_things.pagination.OffsetPage
   :members:
   :show-inheritance:
 
-.. autoclass:: sqlalchemy_things.pagination.CountOffsetPaginator
+.. autoclass:: sqlalchemy_things.pagination.OffsetPaginator
   :members:
   :show-inheritance:
 
