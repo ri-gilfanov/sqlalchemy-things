@@ -25,7 +25,7 @@ class CountOffsetPaginator:
     def __init__(self, limit: int = 10):
         self.limit = limit
 
-    async def get_async(
+    async def get_page_async(
         self,
         session: AsyncSession,
         stmt: Select,
@@ -35,12 +35,11 @@ class CountOffsetPaginator:
         total_items = (await session.execute(
             select(count()).select_from(stmt)
         )).scalar_one()
-        stmt = stmt.limit(self.limit)
-        stmt = stmt.offset((page_number - 1) * self.limit)
+        stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
         items = (await session.execute(stmt)).scalars()
         return self.prepare_page_instance(page_number, total_items, items)
 
-    def get_sync(
+    def get_page_sync(
         self,
         session: Session,
         stmt: Select,
@@ -49,8 +48,7 @@ class CountOffsetPaginator:
         total_items = session.execute(
             select(count()).select_from(stmt)
         ).scalar_one()
-        stmt = stmt.limit(self.limit)
-        stmt = stmt.offset((page_number - 1) * self.limit)
+        stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
         items = session.execute(stmt).scalars()
         return self.prepare_page_instance(page_number, total_items, items)
 

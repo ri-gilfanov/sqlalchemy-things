@@ -25,7 +25,7 @@ async def test_count_offset_page_async(
         stmt = select(mapped_class)
         paginator = CountOffsetPaginator()
 
-        page: CountOffsetPage = await paginator.get_async(
+        page: CountOffsetPage = await paginator.get_page_async(
             sqlite_async_session, stmt, 1)
         items = tuple(page.items)
         for item in items:
@@ -37,14 +37,14 @@ async def test_count_offset_page_async(
         assert len(items) == 10
         assert page.total_items == 92
 
-        page = await paginator.get_async(
+        page = await paginator.get_page_async(
             sqlite_async_session, stmt, 5)
         assert page.previous == 4
         assert page.next == 6
         assert len(tuple(page.items)) == 10
         assert page.total_items == 92
 
-        page = await paginator.get_async(
+        page = await paginator.get_page_async(
             sqlite_async_session, stmt, 10)
         assert page.previous == 9
         assert page.next is None
@@ -67,7 +67,7 @@ def test_count_offset_page_sync(
         stmt = select(mapped_class)
         paginator = CountOffsetPaginator()
 
-        page: CountOffsetPage = paginator.get_sync(
+        page: CountOffsetPage = paginator.get_page_sync(
             sqlite_sync_session, stmt, 1)
         items = tuple(page.items)
         for item in items:
@@ -79,14 +79,14 @@ def test_count_offset_page_sync(
         assert len(items) == 10
         assert page.total_items == 92
 
-        page = paginator.get_sync(
+        page = paginator.get_page_sync(
             sqlite_sync_session, stmt, 5)
         assert page.previous == 4
         assert page.next == 6
         assert len(tuple(page.items)) == 10
         assert page.total_items == 92
 
-        page = paginator.get_sync(
+        page = paginator.get_page_sync(
             sqlite_sync_session, stmt, 10)
         assert page.previous == 9
         assert page.next is None
