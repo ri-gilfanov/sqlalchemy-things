@@ -1,5 +1,25 @@
 Releases
 ========
+Version 0.8.0
+-------------
+**Added**
+
+* ``pagination.OffsetPage``.
+
+**Changed**
+
+* Renamed ``prepare_page_async()`` method to ``get_page_async()``
+  in ``pagination.OffsetPaginator``;
+* Renamed ``prepare_page_sync()`` method to ``get_page_sync()``
+  in ``pagination.OffsetPaginator``.
+
+  **Removed**
+  
+* ``get_items()`` method from ``pagination.OffsetPaginator``;
+* ``get_last_page_number()`` method from ``pagination.OffsetPaginator``;
+* ``get_next_page_number()`` method from ``pagination.OffsetPaginator``;
+* ``get_previous_page_number()`` method from ``pagination.OffsetPaginator``.
+
 Version 0.7.0
 -------------
 **Added**
@@ -11,9 +31,9 @@ Version 0.7.0
 
 **Changed**
 
-* Renamed ``get_page_async`` attribute to ``prepare_page_async``
+* Renamed ``get_page_async`` method to ``prepare_page_async``
   in ``pagination.OffsetPaginator``;
-* Renamed ``get_page_sync`` attribute to ``prepare_page_sync``
+* Renamed ``get_page_sync`` method to ``prepare_page_sync``
   in ``pagination.OffsetPaginator``.
 
 **Removed**
