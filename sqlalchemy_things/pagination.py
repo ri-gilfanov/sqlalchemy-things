@@ -33,7 +33,7 @@ class OffsetPaginator:
     ) -> OffsetPage:
 
         total_items = (await session.execute(
-            select(count()).select_from(stmt)
+            select(count()).select_from(stmt.subquery())
         )).scalar_one()
         stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
         items = (await session.execute(stmt)).scalars()
@@ -46,7 +46,7 @@ class OffsetPaginator:
         page_number: int,
     ) -> OffsetPage:
         total_items = session.execute(
-            select(count()).select_from(stmt)
+            select(count()).select_from(stmt.subquery())
         ).scalar_one()
         stmt = stmt.limit(self.limit).offset((page_number - 1) * self.limit)
         items = session.execute(stmt).scalars()
