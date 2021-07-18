@@ -1,5 +1,12 @@
 Releases
 ========
+Version 0.4.0
+-------------
+**Added**
+
+* ``CountOffsetPage``;
+* ``CountOffsetPaginator``.
+
 Version 0.3.0
 -------------
 **Changed**

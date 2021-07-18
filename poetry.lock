@@ -638,7 +638,7 @@ sqlite = ["aiosqlite"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "758b627448289d10b2995ce3923704d0495361a7b3ad17d1488e57eacc58c938"
+content-hash = "1f86b13c62476c5075f36dcd2c3f2ffbece4aa916e1f809434048b848667a6b1"
 
 [metadata.files]
 aiomysql = [
