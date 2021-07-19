@@ -1,5 +1,17 @@
 Releases
 ========
+Version 0.10.0
+--------------
+**Added**
+
+* Handling ``number`` < 1 for ``pagination.OffsetPaginator.get_page_async()``
+  and ``pagination.OffsetPaginator.get_page_sync``.
+
+**Changed**
+
+* renamed ``page_number`` to ``number`` for ``pagination`` classes;
+* renamed ``total_items`` to ``total`` for ``pagination`` classes.
+
 Version 0.9.0
 -------------
 **Changed**

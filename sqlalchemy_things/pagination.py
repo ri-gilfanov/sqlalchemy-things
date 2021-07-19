@@ -7,38 +7,34 @@ from sqlalchemy.sql import Select, select
 from sqlalchemy.sql.functions import count
 
 
+Result = Union[AsyncScalarResult, ScalarResult]
+
+
 class OffsetPage:
     next: Optional[int] = None
     previous: Optional[int] = None
-    total_items: int = 0
 
-    def __init__(
-        self,
-        items: Union[AsyncScalarResult, ScalarResult],
-        page_number: int,
-        page_size: int,
-        total_items: int,
-    ):
+    def __init__(self, items: Result, number: int, page_size: int, total: int):
         self.items = items
         self.page_size = page_size
-        self.total_items = total_items
+        self.total = total
 
-        if page_number * self.page_size < self.total_items:
-            self.next = page_number + 1
+        if number * self.page_size < self.total:
+            self.next = number + 1
 
-        if page_number > 1:
-            self.previous = page_number - 1
+        if number > 1:
+            self.previous = number - 1
 
     @property
     def last(self) -> int:
-        return self.total_items // self.page_size + bool(
-            self.total_items % self.page_size)
+        return self.total // self.page_size + bool(
+            self.total % self.page_size)
 
 
 class OffsetPaginator:
-    items: Union[AsyncScalarResult, ScalarResult]
-    page_number: int
-    total_items: int
+    items: Result
+    number: int
+    total: int
 
     def __init__(self, page_size: int = 20, max_page: Optional[int] = None):
         self.page_size = page_size
@@ -48,50 +44,47 @@ class OffsetPaginator:
         self,
         session: AsyncSession,
         stmt: Select,
-        page_number: int,
+        number: int,
     ) -> Optional[OffsetPage]:
-        stmt = self.handle_max_page(stmt, page_number)
+        stmt = self.handle_page_number(stmt, number)
         if stmt is None:
             return None
-        total_items = (await session.execute(
+        total = (await session.execute(
             select(count()).select_from(stmt.subquery())
         )).scalar_one()
 
         stmt = stmt.limit(self.page_size)
-        stmt = stmt.offset((page_number - 1) * self.page_size)
+        stmt = stmt.offset((number - 1) * self.page_size)
 
         items = (await session.execute(stmt)).scalars()
-        return OffsetPage(items, page_number, self.page_size, total_items)
+        return OffsetPage(items, number, self.page_size, total)
 
     def get_page_sync(
         self,
         session: Session,
         stmt: Select,
-        page_number: int,
+        number: int,
     ) -> Optional[OffsetPage]:
-        stmt = self.handle_max_page(stmt, page_number)
+        stmt = self.handle_page_number(stmt, number)
         if stmt is None:
             return None
-        total_items = session.execute(
+        total = session.execute(
             select(count()).select_from(stmt.subquery())
         ).scalar_one()
 
         stmt = stmt.limit(self.page_size)
-        stmt = stmt.offset((page_number - 1) * self.page_size)
+        stmt = stmt.offset((number - 1) * self.page_size)
 
         items = session.execute(stmt).scalars()
-        return OffsetPage(items, page_number, self.page_size, total_items)
+        return OffsetPage(items, number, self.page_size, total)
 
-    def handle_max_page(
-        self,
-        stmt: Select,
-        page_number: int,
-    ) -> Optional[Select]:
+    def handle_page_number(self, stmt: Select, number: int) -> Optional[Select]:
         if self.max_page:
-            if page_number > self.max_page:
+            if number < 1:
+                return None
+            if number > self.max_page:
                 return None
 
-            if self.max_page:
-                stmt = stmt.limit(self.max_page * self.page_size)
+            stmt = stmt.limit(self.max_page * self.page_size)
 
         return stmt
