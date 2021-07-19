@@ -49,8 +49,10 @@ class OffsetPaginator:
         session: AsyncSession,
         stmt: Select,
         page_number: int,
-    ) -> OffsetPage:
+    ) -> Optional[OffsetPage]:
         stmt = self.handle_max_page(stmt, page_number)
+        if stmt is None:
+            return None
         total_items = (await session.execute(
             select(count()).select_from(stmt.subquery())
         )).scalar_one()
@@ -66,8 +68,10 @@ class OffsetPaginator:
         session: Session,
         stmt: Select,
         page_number: int,
-    ) -> OffsetPage:
+    ) -> Optional[OffsetPage]:
         stmt = self.handle_max_page(stmt, page_number)
+        if stmt is None:
+            return None
         total_items = session.execute(
             select(count()).select_from(stmt.subquery())
         ).scalar_one()
@@ -82,10 +86,10 @@ class OffsetPaginator:
         self,
         stmt: Select,
         page_number: int,
-    ) -> Select:
+    ) -> Optional[Select]:
         if self.max_page:
             if page_number > self.max_page:
-                raise ValueError
+                return None
 
             if self.max_page:
                 stmt = stmt.limit(self.max_page * self.page_size)
