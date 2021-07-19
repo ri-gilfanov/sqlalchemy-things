@@ -40,7 +40,7 @@ class OffsetPaginator:
     page_number: int
     total_items: int
 
-    def __init__(self, page_size: int = 10, max_page: Optional[int] = None):
+    def __init__(self, page_size: int = 20, max_page: Optional[int] = None):
         self.page_size = page_size
         self.max_page = max_page
 
