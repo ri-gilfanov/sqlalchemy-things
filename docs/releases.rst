@@ -1,5 +1,12 @@
 Releases
 ========
+Version 0.9.0
+-------------
+**Changed**
+
+* ``ValueError`` exception replaced with return ``None`` when exceeding
+  the ``max_page`` in ``pagination.OffsetPage``.
+
 Version 0.8.0
 -------------
 **Added**

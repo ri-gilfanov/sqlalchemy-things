@@ -47,8 +47,8 @@ async def test_count_offset_page_async(
         assert page.next is None
         assert len(tuple(page.items)) == 2
 
-        with pytest.raises(ValueError):
-            await paginator.get_page_async(sqlite_async_session, stmt, 11)
+        page = await paginator.get_page_async(sqlite_async_session, stmt, 11)
+        assert page is None
 
 
 def test_count_offset_page_sync(
@@ -88,5 +88,5 @@ def test_count_offset_page_sync(
         assert page.next is None
         assert len(tuple(page.items)) == 2
 
-        with pytest.raises(ValueError):
-            paginator.get_page_sync(sqlite_sync_session, stmt, 11)
+        page = paginator.get_page_sync(sqlite_sync_session, stmt, 11)
+        assert page is None
