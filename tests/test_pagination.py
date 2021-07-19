@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.expression import select
 
-from sqlalchemy_things.pagination import OffsetPaginator
+from sqlalchemy_things.pagination import OffsetPage, OffsetPaginator
 
 
 @pytest.mark.asyncio
@@ -26,6 +26,7 @@ async def test_count_offset_page_async(
         paginator = OffsetPaginator(max_page=10)
 
         page = await paginator.get_page_async(sqlite_async_session, stmt, 1)
+        assert isinstance(page, OffsetPage)
         items = tuple(page.items)
         for item in items:
             assert isinstance(item, mapped_class)
@@ -38,11 +39,13 @@ async def test_count_offset_page_async(
         assert page.total_items == 92
 
         page = await paginator.get_page_async(sqlite_async_session, stmt, 5)
+        assert isinstance(page, OffsetPage)
         assert page.previous == 4
         assert page.next == 6
         assert len(tuple(page.items)) == 10
 
         page = await paginator.get_page_async(sqlite_async_session, stmt, 10)
+        assert isinstance(page, OffsetPage)
         assert page.previous == 9
         assert page.next is None
         assert len(tuple(page.items)) == 2
@@ -67,6 +70,7 @@ def test_count_offset_page_sync(
         paginator = OffsetPaginator(max_page=10)
 
         page = paginator.get_page_sync(sqlite_sync_session, stmt, 1)
+        assert isinstance(page, OffsetPage)
         items = tuple(page.items)
         for item in items:
             assert isinstance(item, mapped_class)
@@ -79,11 +83,13 @@ def test_count_offset_page_sync(
         assert page.total_items == 92
 
         page = paginator.get_page_sync(sqlite_sync_session, stmt, 5)
+        assert isinstance(page, OffsetPage)
         assert page.previous == 4
         assert page.next == 6
         assert len(tuple(page.items)) == 10
 
         page = paginator.get_page_sync(sqlite_sync_session, stmt, 10)
+        assert isinstance(page, OffsetPage)
         assert page.previous == 9
         assert page.next is None
         assert len(tuple(page.items)) == 2

@@ -49,7 +49,7 @@ class OffsetPaginator:
         session: AsyncSession,
         stmt: Select,
         page_number: int,
-    ) -> OffsetPage:
+    ) -> Optional[OffsetPage]:
         stmt = self.handle_max_page(stmt, page_number)
         if stmt is None:
             return None
@@ -68,7 +68,7 @@ class OffsetPaginator:
         session: Session,
         stmt: Select,
         page_number: int,
-    ) -> OffsetPage:
+    ) -> Optional[OffsetPage]:
         stmt = self.handle_max_page(stmt, page_number)
         if stmt is None:
             return None
