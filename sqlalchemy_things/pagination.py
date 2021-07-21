@@ -1,11 +1,10 @@
-from typing import Optional, Union
+from typing import Any, List, Optional, Union
 
 from sqlalchemy.engine.result import ScalarResult
 from sqlalchemy.ext.asyncio import AsyncScalarResult, AsyncSession
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import Select, select
 from sqlalchemy.sql.functions import count
-
 
 Result = Union[AsyncScalarResult, ScalarResult]
 
@@ -14,7 +13,13 @@ class OffsetPage:
     next: Optional[int] = None
     previous: Optional[int] = None
 
-    def __init__(self, items: Result, number: int, page_size: int, total: int):
+    def __init__(
+        self,
+        items: List[Any],
+        number: int,
+        page_size: int,
+        total: int,
+    ):
         self.items = items
         self.page_size = page_size
         self.total = total
@@ -22,7 +27,7 @@ class OffsetPage:
         if number * self.page_size < self.total:
             self.next = number + 1
 
-        if number > 1:
+        if number > 1 and len(items) > 0:
             self.previous = number - 1
 
     @property
@@ -32,7 +37,6 @@ class OffsetPage:
 
 
 class OffsetPaginator:
-    items: Result
     number: int
     total: int
 
@@ -56,7 +60,7 @@ class OffsetPaginator:
         stmt = stmt.limit(self.page_size)
         stmt = stmt.offset((number - 1) * self.page_size)
 
-        items = (await session.execute(stmt)).scalars()
+        items: List[Any] = list((await session.execute(stmt)).scalars())
         return OffsetPage(items, number, self.page_size, total)
 
     def get_page_sync(
@@ -75,7 +79,7 @@ class OffsetPaginator:
         stmt = stmt.limit(self.page_size)
         stmt = stmt.offset((number - 1) * self.page_size)
 
-        items = session.execute(stmt).scalars()
+        items = list(session.execute(stmt).scalars())
         return OffsetPage(items, number, self.page_size, total)
 
     def handle_page_number(self, stmt: Select, number: int) -> Optional[Select]:
