@@ -40,10 +40,12 @@ async def test_count_offset_page_async(
                     assert isinstance(item.pk, int)
                     assert isinstance(item.created_at, datetime)
 
-                if number == 1:
+                if number <= 1:
                     assert page.previous is None
-                else:
+                elif number > 1 and len(page.items) > 0:
                     assert page.previous == number - 1
+                else:
+                    assert page.previous is None
 
                 if number < page.last:
                     assert page.next == number + 1
@@ -86,10 +88,12 @@ def test_count_offset_page_sync(
                     assert isinstance(item.pk, int)
                     assert isinstance(item.created_at, datetime)
 
-                if number == 1:
+                if number <= 1:
                     assert page.previous is None
-                else:
+                elif number > 1 and len(page.items) > 0:
                     assert page.previous == number - 1
+                else:
+                    assert page.previous is None
 
                 if number < page.last:
                     assert page.next == number + 1
