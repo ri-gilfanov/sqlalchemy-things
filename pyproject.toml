@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sqlalchemy-things"
-version = "0.10.1"
+version = "0.10.2"
 description = "Utility collection for development with SQLalchemy ORM."
 authors = [
     "Ruslan Ilyasovich Gilfanov <ri.gilfanov@yandex.ru>",
