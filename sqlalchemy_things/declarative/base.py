@@ -17,7 +17,10 @@ class InheritedDeclarativeMixin(DeclarativeMixin):
 @orm.declarative_mixin
 class PolymorphicMixin(DeclarativeMixin):
     """Polymorphic mixin for single table and joined table inheritance."""
-    discriminator = sa.Column(sa.String(40), nullable=False)
+
+    @orm.declared_attr  # type: ignore
+    def discriminator(cls) -> sa.Column:
+        return sa.Column(sa.String(40), nullable=False)
 
     __mapper_args__ = {
         'polymorphic_on': discriminator,
