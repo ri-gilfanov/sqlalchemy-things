@@ -2,11 +2,24 @@
 name = "sqlalchemy-things"
 version = "0.10.2"
 description = "Utility collection for development with SQLalchemy ORM."
+license = "MIT"
+
 authors = [
     "Ruslan Ilyasovich Gilfanov <ri.gilfanov@yandex.ru>",
 ]
+maintainers = [
+    "Ruslan Ilyasovich Gilfanov <ri.gilfanov@yandex.ru>",
+]
+
+readme = "README.rst"
+homepage = "https://github.com/ri-gilfanov/sqlalchemy-things"
+repository = "https://github.com/ri-gilfanov/sqlalchemy-things"
+documentation = "https://sqlalchemy-things.readthedocs.io/"
+
+keywords = ["sqlalchemy"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -19,12 +32,6 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-keywords = ["sqlalchemy"]
-license = "MIT License"
-readme = "README.rst"
-
-documentation = "https://sqlalchemy-things.readthedocs.io/"
-repository = "https://github.com/ri-gilfanov/sqlalchemy-things"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -61,10 +68,7 @@ profile = "wemake"
 src_paths = ["sqlalchemy_things", "tests"]
 
 [tool.mypy]
-files = [
-    "sqlalchemy_things",
-    "tests",
-]
+files = ["sqlalchemy_things", "tests"]
 plugins = "sqlalchemy.ext.mypy.plugin"
 
 [[tool.mypy.overrides]]
