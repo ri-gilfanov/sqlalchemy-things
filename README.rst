@@ -19,7 +19,7 @@ sqlalchemy-things
   :target: https://github.com/ri-gilfanov/sqlalchemy-things/blob/master/LICENSE
   :alt: MIT License
 
-.. |Python versions| image:: https://img.shields.io/badge/Python-3.7%20%7C%203.8%20%7C%203.9-blue
+.. |Python versions| image:: https://img.shields.io/badge/Python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue
   :target: https://pypi.org/project/sqlalchemy-things/
   :alt: Python version support
 
