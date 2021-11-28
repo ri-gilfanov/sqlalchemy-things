@@ -3,7 +3,7 @@ name = "aiomysql"
 version = "0.0.22"
 description = "MySQL driver for asyncio."
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [package.dependencies]
@@ -327,7 +327,7 @@ name = "pymysql"
 version = "0.9.3"
 description = "Pure Python MySQL Driver"
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [package.extras]
@@ -644,7 +644,7 @@ sqlite = ["aiosqlite"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "21044df6e562a9a6e20562f19dcd30ff096e75bcc1796c85922b2ce504d96a95"
+content-hash = "f985d340e85c3825925231b591f9dca9c95e62859437ab7b0c265ef4b4c21f25"
 
 [metadata.files]
 aiomysql = [
