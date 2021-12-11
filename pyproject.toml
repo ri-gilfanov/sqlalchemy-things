@@ -36,7 +36,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-sqlalchemy = "^1.4.27"
+sqlalchemy = "^1.4.28"
 aiomysql = { version = ">=0.0.22", optional = true }
 aiosqlite = { version = ">=0.17.0", optional = true }
 asyncpg = { version = ">=0.25.0", optional = true }
