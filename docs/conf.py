@@ -15,7 +15,7 @@ from sqlalchemy_things import __version__
 # -- Project information -----------------------------------------------------
 
 project = "sqlalchemy-things"
-copyright = "2021, Ruslan Ilyasovich Gilfanov"
+copyright = "2021-2024, Ruslan Ilyasovich Gilfanov"
 author = "Ruslan Ilyasovich Gilfanov"
 
 # The full version, including alpha/beta/rc tags
