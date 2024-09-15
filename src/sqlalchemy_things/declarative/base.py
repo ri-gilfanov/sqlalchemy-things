@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Optional
+from typing import Any, Iterable
 
 import sqlalchemy as sa
 from sqlalchemy import Table, orm
@@ -6,7 +6,7 @@ from sqlalchemy import Table, orm
 
 @orm.declarative_mixin
 class DeclarativeMixin:
-    __table__: 'Table'
+    __table__: "Table"
 
 
 @orm.declarative_mixin
@@ -18,26 +18,26 @@ class InheritedDeclarativeMixin(DeclarativeMixin):
 class PolymorphicMixin(DeclarativeMixin):
     """Polymorphic mixin for single table and joined table inheritance."""
 
-    @orm.declared_attr  # type: ignore
-    def discriminator(cls) -> sa.Column:
-        return sa.Column(sa.String(40), nullable=False)
+    @orm.declared_attr
+    def discriminator(self) -> orm.Mapped[str]:
+        return orm.mapped_column("discriminator", sa.String(40), nullable=False)
 
     __mapper_args__ = {
-        'polymorphic_on': discriminator,
+        "polymorphic_on": "discriminator",
     }
 
 
 def get_inherited_column(
-    cls: Any,
+    self: DeclarativeMixin,
     name: str,
-    default: sa.Column,
-) -> Optional[sa.Column]:
+    default: orm.Mapped[Any],
+) -> orm.Mapped[Any]:
     """
     Utility function for column inheriting in mixins.
 
     :param name: column name of parent class;
     :param default: default value if not found in parent class.
     """
-    if hasattr(cls, '__table__'):
-        return cls.__table__.c.get(name, default)
-    return None
+    if hasattr(self, "__table__"):
+        return self.__table__.c.get(name, default)  # type: ignore
+    return default

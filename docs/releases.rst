@@ -1,5 +1,23 @@
 Releases
 ========
+Version 1.0.0
+-------------
+
+**Added**
+
+* Added support for Python 3.11 and 3.12;
+* Added support for SQLAlchemy v2.0.
+
+**Changed**
+
+* Renamed first argument from ``cls`` to ``self`` in signatures of
+  ``get_inherited_column()`` and ``get_inherited_primary_key()`` functions.
+
+**Removed**
+
+* Dropped support for Python 3.7;
+* Dropped support for SQLAlchemy 1.4.
+
 Version 0.10.0
 --------------
 **Added**

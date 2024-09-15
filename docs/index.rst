@@ -15,7 +15,7 @@ sqlalchemy-things's documentation
   :target: https://github.com/ri-gilfanov/sqlalchemy-things/blob/master/LICENSE
   :alt: MIT License
 
-.. |Python versions| image:: https://img.shields.io/badge/Python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue
+.. |Python versions| image:: https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue
   :target: https://pypi.org/project/sqlalchemy-things/
   :alt: Python version support
 
@@ -31,7 +31,7 @@ sqlalchemy-things's documentation
   :target: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things
   :alt: codecov.io status for master branch
 
-Utility collection for development with `SQLAlchemy 1.4 / 2.0
+Utility collection for development with `SQLAlchemy 2.0
 <https://www.sqlalchemy.org/>`_ ORM.
 
 .. toctree::

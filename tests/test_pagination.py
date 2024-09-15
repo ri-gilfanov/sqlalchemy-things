@@ -21,14 +21,11 @@ async def test_count_offset_page_async(
 
     await init_db(session.bind, base_model)
     async with session.begin():
-        session.add_all([
-            mapped_class()
-            for i in range(42)
-        ])
+        session.add_all([mapped_class() for i in range(42)])
         stmt = select(mapped_class)
         paginator = OffsetPaginator(max_page=MAX_PAGE)
 
-        for number in range(0, 5):
+        for number in range(5):
             page = await paginator.get_page_async(session, stmt, number)
             if number < 1 or number > MAX_PAGE:
                 assert page is None
@@ -69,14 +66,11 @@ def test_count_offset_page_sync(
 
     init_db_sync(session.bind, base_model)
     with session.begin():
-        session.add_all([
-            mapped_class()
-            for i in range(42)
-        ])
+        session.add_all([mapped_class() for i in range(42)])
         stmt = select(mapped_class)
         paginator = OffsetPaginator(max_page=MAX_PAGE)
 
-        for number in range(0, 5):
+        for number in range(5):
             page = paginator.get_page_sync(session, stmt, number)
             if number < 1 or number > MAX_PAGE:
                 assert page is None

@@ -1,8 +1,9 @@
-from typing import Any, Tuple, Type
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 import pytest
 import sqlalchemy as sa
-from sqlalchemy.ext.asyncio import AsyncEngine
 
 from sqlalchemy_things.declarative import (
     BigIntegerPrimaryKeyMixin,
@@ -13,21 +14,25 @@ from sqlalchemy_things.declarative import (
     UUIDPrimaryKeyMixin,
 )
 
+if TYPE_CHECKING:  # pragma: no cover
+    from sqlalchemy.ext.asyncio import AsyncEngine
+
 
 def get_child_models(
     base_model: Any,
-    pk_mixin: Type[DeclarativeMixin],
-) -> Tuple[Any, Any]:
+    pk_mixin: type[DeclarativeMixin],
+) -> tuple[Any, Any]:
     class Parent(base_model, pk_mixin, PolymorphicMixin):  # type: ignore
-        __tablename__ = 'single_table'
+        __tablename__ = "single_table"
 
     class ChildA(Parent):
-        __mapper_args__ = {'polymorphic_identity': 'child_a'}
+        __mapper_args__ = {"polymorphic_identity": "child_a"}
         some_field = sa.Column(sa.String(255))
 
     class ChildB(Parent):
-        __mapper_args__ = {'polymorphic_identity': 'child_b'}
+        __mapper_args__ = {"polymorphic_identity": "child_b"}
         other_field = sa.Column(sa.String(127))
+
     return ChildA, ChildB
 
 
