@@ -50,54 +50,54 @@ Single table inheritance
 ^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: python
 
+  from sqlalchemy import orm
   from sqlalchemy_things.declarative import (
       IntegerPrimaryKeyMixin,
       PolymorphicMixin,
   )
 
-  metadata = sa.MetaData()
-  Base = orm.declarative_base(metadata=metadata)
+  class Base(orm.DeclarativeBase): ...
 
 
-  class Parent(Base, IntegerPrimaryKeyMixin, PolymorphicMixin):
-      __tablename__ = 'single_table'
+  class ParentA(Base, IntegerPrimaryKeyMixin, PolymorphicMixin):
+      __tablename__ = "single_table"
 
 
-  class ChildA(Parent):
-      __mapper_args__ = {'polymorphic_identity': 'child_a'}
+  class ChildA1(ParentA):
+      __mapper_args__ = {"polymorphic_identity": "child_a1"}
       some_field = sa.Column(sa.String(255))
 
 
-  class ChildB(Parent):
-      __mapper_args__ = {'polymorphic_identity': 'child_b'}
+  class ChildA2(ParentA):
+      __mapper_args__ = {"polymorphic_identity": "child_a2"}
       other_filed = sa.Column(sa.String(127))
 
 Joined table inheritance with cascade primary key mixins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: python
 
+  from sqlalchemy import orm
   from sqlalchemy_things.declarative import (
       CascadeIntegerPrimaryKeyMixin,
       PolymorphicMixin,
   )
 
-  metadata = sa.MetaData()
-  Base = orm.declarative_base(metadata=metadata)
+  class Base(orm.DeclarativeBase): ...
 
 
-  class Parent(Base, CascadeIntegerPrimaryKeyMixin, PolymorphicMixin):
-      __tablename__ = 'cascade_pk_parent_table'
+  class ParentB(Base, CascadeIntegerPrimaryKeyMixin, PolymorphicMixin):
+      __tablename__ = "parent_b"
 
 
-  class ChildA(Parent):
-      __tablename__ = 'cascade_pk_child_table_a'
-      __mapper_args__ = {'polymorphic_identity': 'child_a'}
+  class ChildB1(ParentB):
+      __tablename__ = "child_b1"
+      __mapper_args__ = {"polymorphic_identity": "child_b1"}
       some_field = sa.Column(sa.String(255))
 
 
-  class ChildB(Parent):
-      __tablename__ = 'cascade_pk_child_table_b'
-      __mapper_args__ = {'polymorphic_identity': 'child_b'}
+  class ChildB2(ParentB):
+      __tablename__ = "child_b2"
+      __mapper_args__ = {"polymorphic_identity": "child_b2"}
       some_field = sa.Column(sa.String(127))
 
 
@@ -105,27 +105,27 @@ Joined table inheritance with simple primary key mixins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: python
 
+  from sqlalchemy import orm
   from sqlalchemy_things.declarative import (
       IntegerPrimaryKeyMixin,
       ParentPrimaryKeyMixin,
       PolymorphicMixin,
   )
 
-  metadata = sa.MetaData()
-  Base = orm.declarative_base(metadata=metadata)
+  class Base(orm.DeclarativeBase): ...
 
 
-  class Parent(Base, IntegerPrimaryKeyMixin, PolymorphicMixin):
-      __tablename__ = 'inherited_pk_parent_table'
+  class ParentC(Base, IntegerPrimaryKeyMixin, PolymorphicMixin):
+      __tablename__ = "parent_c"
 
 
-  class ChildA(ParentPrimaryKeyMixin, Parent):
-      __tablename__ = 'inherited_pk_child_table_a'
-      __mapper_args__ = {'polymorphic_identity': 'child_a'}
+  class ChildC1(ParentPrimaryKeyMixin, ParentC):
+      __tablename__ = "child_c1"
+      __mapper_args__ = {"polymorphic_identity": "child_c1"}
       some_field = sa.Column(sa.String(255))
 
 
-  class ChildB(ParentPrimaryKeyMixin, Parent):
-      __tablename__ = 'inherited_pk_child_table_b'
-      __mapper_args__ = {'polymorphic_identity': 'child_b'}
+  class ChildC2(ParentPrimaryKeyMixin, ParentC):
+      __tablename__ = "child_c2"
+      __mapper_args__ = {"polymorphic_identity": "child_c2"}
       some_field = sa.Column(sa.String(127))
