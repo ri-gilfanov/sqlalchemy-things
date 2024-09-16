@@ -20,13 +20,10 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 @pytest.fixture
-def metadata() -> sa.MetaData:
-    return sa.MetaData()
+def base_model() -> Any:
+    class BaseModel(orm.DeclarativeBase): ...
 
-
-@pytest.fixture
-def base_model(metadata: sa.MetaData) -> Any:
-    return orm.declarative_base(metadata=metadata)
+    return BaseModel
 
 
 @pytest.fixture

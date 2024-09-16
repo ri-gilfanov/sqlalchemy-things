@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "sqlalchemy-things"
 packages = [{include = "sqlalchemy_things", from = "src" }]
-version = "1.0.0"
+version = "1.0.1"
 description = "Utility collection for development with SQLalchemy ORM."
 license = "MIT"
 

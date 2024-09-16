@@ -1,5 +1,12 @@
 Releases
 ========
+Version 1.0.1
+-------------
+
+**Changed**
+
+* Fix ``table`` type hint for ``base.DeclarativeMixin``.
+
 Version 1.0.0
 -------------
 
