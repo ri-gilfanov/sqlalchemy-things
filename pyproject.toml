@@ -72,7 +72,7 @@ profile = "wemake"
 src_paths = ["src", "tests"]
 
 [tool.mypy]
-files = ["src", "tests"]
+files = ["example.py", "src", "tests"]
 
 [tool.ruff]
 line-length = 88

@@ -1,12 +1,17 @@
-from typing import Any, Iterable
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any, ClassVar, Iterable
 
 import sqlalchemy as sa
-from sqlalchemy import Table, orm
+from sqlalchemy import orm
+
+if TYPE_CHECKING:
+    from sqlalchemy.sql.selectable import FromClause
 
 
 @orm.declarative_mixin
 class DeclarativeMixin:
-    __table__: "Table"
+    __table__: ClassVar[FromClause]
 
 
 @orm.declarative_mixin
