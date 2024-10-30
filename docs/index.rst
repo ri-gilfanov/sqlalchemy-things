@@ -15,7 +15,7 @@ sqlalchemy-things's documentation
   :target: https://github.com/ri-gilfanov/sqlalchemy-things/blob/master/LICENSE
   :alt: MIT License
 
-.. |Python versions| image:: https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue
+.. |Python versions| image:: https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue
   :target: https://pypi.org/project/sqlalchemy-things/
   :alt: Python version support
 

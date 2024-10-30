@@ -1,5 +1,16 @@
 Releases
 ========
+Version 1.0.2
+-------------
+
+**Added**
+
+* Added support for Python 3.13.
+
+**Changed**
+
+* Update dependencies.
+
 Version 1.0.1
 -------------
 
