@@ -1,5 +1,15 @@
 Releases
 ========
+Version 1.1.0
+-------------
+**Changed**
+
+* Update dependencies.
+
+**Removed**
+
+* Dropped support for Python 3.8.
+
 Version 1.0.2
 -------------
 

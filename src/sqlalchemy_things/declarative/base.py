@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, ClassVar, Iterable
+from typing import TYPE_CHECKING, Any, ClassVar
 
 import sqlalchemy as sa
 from sqlalchemy import orm
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+
     from sqlalchemy.sql.selectable import FromClause
 
 

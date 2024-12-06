@@ -1,7 +1,7 @@
 =================================
 sqlalchemy-things's documentation
 =================================
-|ReadTheDocs| |PyPI release| |License| |Python versions| |PyPI downloads| |GitHub CI| |Codecov|
+|ReadTheDocs| |PyPI release| |License| |Python versions| |PyPI downloads| |GitHub CI|
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/sqlalchemy-things/badge/?version=latest
   :target: https://sqlalchemy-things.readthedocs.io/en/latest/?badge=latest
@@ -15,7 +15,7 @@ sqlalchemy-things's documentation
   :target: https://github.com/ri-gilfanov/sqlalchemy-things/blob/master/LICENSE
   :alt: MIT License
 
-.. |Python versions| image:: https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue
+.. |Python versions| image:: https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue
   :target: https://pypi.org/project/sqlalchemy-things/
   :alt: Python version support
 
@@ -26,10 +26,6 @@ sqlalchemy-things's documentation
 .. |GitHub CI| image:: https://github.com/ri-gilfanov/sqlalchemy-things/actions/workflows/ci.yml/badge.svg?branch=master
   :target: https://github.com/ri-gilfanov/sqlalchemy-things/actions/workflows/ci.yml
   :alt: GitHub continuous integration
-
-.. |Codecov| image:: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/ri-gilfanov/sqlalchemy-things
-  :alt: codecov.io status for master branch
 
 Utility collection for development with `SQLAlchemy 2.0
 <https://www.sqlalchemy.org/>`_ ORM.

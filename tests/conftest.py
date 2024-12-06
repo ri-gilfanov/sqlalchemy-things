@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import TYPE_CHECKING, Any, Awaitable, Callable
+from typing import TYPE_CHECKING, Any, Callable
 
 import pytest
 import sqlalchemy as sa
@@ -16,6 +16,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy_things.declarative import IntegerPrimaryKeyMixin
 
 if TYPE_CHECKING:  # pragma: no cover
+    from collections.abc import Awaitable
+
     from sqlalchemy.engine.base import Engine
 
 
